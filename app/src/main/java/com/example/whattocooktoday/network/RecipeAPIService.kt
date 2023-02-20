@@ -4,10 +4,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 
-const val num = 1
 
-private const val BASE_URL = "https:/www.themealdb.com/api/json/v1/${num}"
-
+private const val BASE_URL = "https://api.spoonacular.com/"
 //private val moshi = Moshi.Builder()
 //    .add(KotlinJsonAdapterFactory())
 //    .build()
@@ -19,8 +17,8 @@ private val retrofit = Retrofit.Builder()
     .build()
 
 interface RecipeAPIService {
-    @GET("/random.php")
-    suspend fun getRecipe(): Meal
+    @GET("recipes/random?number=1&apiKey=3245166a97ab4292ae0ec30757763386")
+    suspend fun getRecipe(): List<Recipe>
     }
 object RecipeApi {
     val retrofitService : RecipeAPIService by lazy {
