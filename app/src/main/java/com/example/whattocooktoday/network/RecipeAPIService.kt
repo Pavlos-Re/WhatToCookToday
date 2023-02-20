@@ -18,7 +18,7 @@ private val retrofit = Retrofit.Builder()
 
 interface RecipeAPIService {
     @GET("recipes/random?number=1&apiKey=3245166a97ab4292ae0ec30757763386")
-    suspend fun getRecipe(): List<Recipe>
+    suspend fun getRecipe(): Recipe
     }
 object RecipeApi {
     val retrofitService : RecipeAPIService by lazy {

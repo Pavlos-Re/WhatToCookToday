@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 
 class ViewModelScreen: ViewModel() {
 
-    private val _uiState = MutableStateFlow(RecipeUiState())
+    private val _uiState = MutableStateFlow(RecipeUiState(curRecipe = "error"))
 
     val uiState: StateFlow<RecipeUiState> = _uiState.asStateFlow()
 
@@ -25,7 +25,8 @@ class ViewModelScreen: ViewModel() {
         viewModelScope.launch {
             try {
                 val listResult = RecipeApi.retrofitService.getRecipe()
-                _uiState.value = RecipeUiState(listResult[0].sourceName)
+                _uiState.value = RecipeUiState(listResult.title)
+                println("The result is ++++++++++" + listResult)
             } catch (e: Exception) {
                 _uiState.value = RecipeUiState("${e.message}")
             }
