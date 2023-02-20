@@ -5,13 +5,17 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.whattocooktoday.data.RecipeApi
+import com.example.whattocooktoday.data.RecipeUiState
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class ViewModelScreen: ViewModel() {
 
-    private val _status = MutableLiveData<String>()
+    private val _uiState = MutableStateFlow(RecipeUiState())
 
-    val status: LiveData<String> = _status
+    val uiState: StateFlow<RecipeUiState> = _uiState.asStateFlow()
 
     init {
         getRecipe()
@@ -21,9 +25,9 @@ class ViewModelScreen: ViewModel() {
         viewModelScope.launch {
             try {
                 val listResult = RecipeApi.retrofitService.getRecipe()
-                _status.value = listResult.size.toString()
+                _uiState.value = RecipeUiState(listResult.strArea)
             } catch (e: Exception) {
-                _status.value = "Failure: ${e.message}"
+                _uiState.value = RecipeUiState("Error")
             }
         }
     }
