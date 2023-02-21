@@ -2,13 +2,13 @@ package com.example.whattocooktoday.data
 
 import com.squareup.moshi.Json
 
-data class Meal(
+data class MealX(
     //@Json(name = "dateModified") val dateModified: Any,
-    @Json(name = "idMeal") val idMeal: String,
-    /*@Json(name = "strArea") val strArea: String,
+    //@Json(name = "idMeal") val idMeal: String,
+    @Json(name = "strArea") val strArea: String,
     @Json(name = "strCategory") val strCategory: String,
-    @Json(name = "strCreativeCommonsConfirmed") val strCreativeCommonsConfirmed: Any,
-    @Json(name = "strDrinkAlternate") val strDrinkAlternate: Any,
+    //@Json(name = "strCreativeCommonsConfirmed") val strCreativeCommonsConfirmed: Any,
+    //@Json(name = "strDrinkAlternate") val strDrinkAlternate: Any,
     @Json(name = "strImageSource") val strImageSource: Any,
     @Json(name = "strIngredient1") val strIngredient1: String,
     @Json(name = "strIngredient10") val strIngredient10: String,
@@ -55,6 +55,5 @@ data class Meal(
     @Json(name = "strMeasure9") val strMeasure9: String,
     @Json(name = "strSource") val strSource: String,
     @Json(name = "strTags") val strTags: String,
-*/
-)
 
+)
