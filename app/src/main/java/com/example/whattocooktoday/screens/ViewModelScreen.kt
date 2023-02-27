@@ -23,7 +23,7 @@ class ViewModelScreen: ViewModel() {
         viewModelScope.launch {
             try {
                 val listResult = RecipeApi.retrofitService.getRecipe()
-                _uiState.value = RecipeUiState(listResult.meals[0])
+                _uiState.value = RecipeUiState(listResult.meals[0].toDomain())
             } catch (e: Exception) {
                 //_uiState.value = RecipeUiState(${e.message})
                 println("The result is ++++++++++ ${e.message}")
