@@ -1,5 +1,6 @@
 package com.example.whattocooktoday.screens
 
+import android.text.style.BackgroundColorSpan
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -43,19 +44,16 @@ fun MainMenu(recipeViewModel: ViewModelScreen = viewModel()) {
 @Composable
 fun Foreground(recipe: MealDomain = MealDomain.default()) {
 
-    //val ingredients = makeIngredientsList(recipe)
-    //val measures = makeMeasureList(recipe)
-
     Column(verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.background(Color(0xffe3934c)
-        )) {
-        Row(horizontalArrangement = Arrangement.SpaceAround) {
+        modifier = Modifier) {
+        Row(horizontalArrangement = Arrangement.SpaceEvenly) {
             Text(text = "Cuisine: " + recipe.area,
                 color = Color.Black,
                 modifier = Modifier.padding(5.dp),
                 style = TextStyle(fontSize = 20.sp, fontWeight = FontWeight.Bold))
 
-            Text(text = recipe.meal, modifier = Modifier.padding(5.dp),
+            Text(text = recipe.meal,
+                modifier = Modifier.padding(5.dp),
                 style = TextStyle(fontSize = 20.sp, fontWeight = FontWeight.Bold))
         }
 
@@ -65,12 +63,12 @@ fun Foreground(recipe: MealDomain = MealDomain.default()) {
 
         Card(
             elevation = 5.dp,
-            shape = RoundedCornerShape(10.dp),
+            shape = RoundedCornerShape(15.dp),
             modifier = Modifier
-                .fillMaxSize()
                 .padding(10.dp)
+                .fillMaxSize()
                 .background(Color(0xfffae1a9)),
-        ) {
+            ) {
 
             Recipe(recipe)
 
@@ -87,7 +85,8 @@ private fun Recipe(recipe: MealDomain = MealDomain.default()) {
         modifier = Modifier
             .fillMaxSize()
             .background(Color(0xfffae1a9))
-            .padding(end = 10.dp), lazyListState
+            .padding(10.dp),
+            lazyListState
     ) {
 
         item {
@@ -106,15 +105,20 @@ private fun Recipe(recipe: MealDomain = MealDomain.default()) {
 @Composable
 private fun RecipeIngredients(it: Int, recipe: MealDomain = MealDomain.default()) {
 
-        Text("${it + 1}) " + recipe.measures[it] + " " + recipe.ingredients[it])
+        Text("${it + 1}) " + recipe.measures[it] + " " + recipe.ingredients[it], color = Color.Black)
 
 }
 
 @Composable
 private fun RecipeDescription(recipe: MealDomain = MealDomain.default()) {
-    Text(text = recipe.instructions, color = Color.Black, modifier = Modifier.padding(5.dp))
+    Text(text = recipe.instructions, color = Color.Black,
+        modifier = Modifier.padding(5.dp))
 
-    Text(text = "Ingredients: ", color = Color.Black, modifier = Modifier.padding(5.dp))
+    Text(text = "Ingredients: ", color = Color.Black,
+        modifier = Modifier.padding(5.dp),
+        style = TextStyle(fontSize = 20.sp, fontWeight = FontWeight.Bold)
+
+    )
 }
 
 @Composable
