@@ -1,6 +1,5 @@
 package com.example.whattocooktoday.screens
 
-import android.text.style.BackgroundColorSpan
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -46,7 +45,7 @@ fun Foreground(recipe: MealDomain = MealDomain.default()) {
 
     Column(verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier) {
-        Row(horizontalArrangement = Arrangement.SpaceEvenly) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Text(text = "Cuisine: " + recipe.area,
                 color = Color.Black,
                 modifier = Modifier.padding(5.dp),
@@ -62,12 +61,11 @@ fun Foreground(recipe: MealDomain = MealDomain.default()) {
         AsyncImage(model = str, contentDescription = "Meal image")
 
         Card(
-            elevation = 5.dp,
+            elevation = 10.dp,
             shape = RoundedCornerShape(15.dp),
             modifier = Modifier
                 .padding(10.dp)
                 .fillMaxSize()
-                .background(Color(0xfffae1a9)),
             ) {
 
             Recipe(recipe)
@@ -79,6 +77,7 @@ fun Foreground(recipe: MealDomain = MealDomain.default()) {
 
 @Composable
 private fun Recipe(recipe: MealDomain = MealDomain.default()) {
+
     val lazyListState = rememberLazyListState()
 
     LazyColumn(
