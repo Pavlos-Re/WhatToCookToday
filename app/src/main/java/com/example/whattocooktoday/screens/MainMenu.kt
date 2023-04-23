@@ -2,11 +2,16 @@ package com.example.whattocooktoday.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.R
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -46,11 +51,23 @@ fun Foreground(recipe: MealDomain = MealDomain.default()) {
     Column(verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Text(text = "Cuisine: " + recipe.area,
-                color = Color.Black,
-                modifier = Modifier.padding(5.dp),
-                style = TextStyle(fontSize = 20.sp, fontWeight = FontWeight.Bold))
+            Row(horizontalArrangement = Arrangement.SpaceAround, modifier = Modifier.fillMaxWidth()) {
+                Text(
+                    text = "Cuisine: " + recipe.area,
+                    color = Color.Black,
+                    modifier = Modifier.padding(5.dp),
+                    style = TextStyle(fontSize = 20.sp, fontWeight = FontWeight.Bold)
+                )
+                Image(
+                    painter = painterResource(id =  com.example.whattocooktoday.R.drawable.new_recipe),
+                    contentDescription = "New Recipe",
+                    modifier = Modifier
+                        .size(50.dp)
+                        .clickable {
 
+                        }
+                )
+            }
             Text(text = recipe.meal,
                 modifier = Modifier.padding(5.dp),
                 style = TextStyle(fontSize = 20.sp, fontWeight = FontWeight.Bold))
@@ -58,7 +75,7 @@ fun Foreground(recipe: MealDomain = MealDomain.default()) {
 
         val str = recipe.thumb
 
-        AsyncImage(model = str, contentDescription = "Meal image")
+        AsyncImage(model = str, contentDescription = "Meal image", modifier = Modifier.border(5.dp, Color.Black, RoundedCornerShape(5.dp)))
 
         Card(
             elevation = 10.dp,
