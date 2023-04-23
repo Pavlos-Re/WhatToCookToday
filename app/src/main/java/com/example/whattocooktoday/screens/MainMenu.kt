@@ -9,9 +9,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.R
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -40,13 +37,14 @@ fun MainMenu(recipeViewModel: ViewModelScreen = viewModel()) {
                 Background()
                 Foreground(
                         recipe = recipe,
+                    recipeViewModel
                     )
             }
 
 }
 
 @Composable
-fun Foreground(recipe: MealDomain = MealDomain.default()) {
+fun Foreground(recipe: MealDomain = MealDomain.default(), recipeViewModel: ViewModelScreen) {
 
     Column(verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier) {
@@ -64,7 +62,9 @@ fun Foreground(recipe: MealDomain = MealDomain.default()) {
                     modifier = Modifier
                         .size(50.dp)
                         .clickable {
+                            val recipeUiState = recipeViewModel.uiState.value
 
+                            val recipe = recipeUiState.curRecipe
                         }
                 )
             }
