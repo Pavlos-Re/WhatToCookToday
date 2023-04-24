@@ -35,25 +35,30 @@ fun MainMenu(recipeViewModel: ViewModelScreen = viewModel()) {
 
     val recipe = recipeUiState.curRecipe
 
+    Background()
     if (recipe != null) {
-                Background()
-                Foreground(
-                        recipe = recipe,
-                    recipeViewModel
-                    )
-            }
+        Foreground(
+            recipe = recipe,
+            recipeViewModel
+        )
+    }
 
 }
 
 @Composable
-fun Foreground(recipe: MealDomain = MealDomain.default(), recipeViewModel: ViewModelScreen) {
+fun Foreground(
+    recipe: MealDomain = MealDomain.default(),
+    recipeViewModel: ViewModelScreen
+) {
+
+    var area by remember {mutableStateOf(  recipe.area) }
 
     Column(verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Row(horizontalArrangement = Arrangement.SpaceAround, modifier = Modifier.fillMaxWidth()) {
                 Text(
-                    text = "Cuisine: " + recipe.area,
+                    text = "Cuisine: $area",
                     color = Color.Black,
                     modifier = Modifier.padding(5.dp),
                     style = TextStyle(fontSize = 20.sp, fontWeight = FontWeight.Bold)
@@ -70,7 +75,16 @@ fun Foreground(recipe: MealDomain = MealDomain.default(), recipeViewModel: ViewM
                                     val listResult = RecipeApi.retrofitService.getRecipe()
                                     state = RecipeUiState(listResult.meals[0].toDomain())
                                     println("The result is: " + state.curRecipe!!.meal)
-                                    //
+
+                                    area = state.curRecipe!!.area
+                                    recipe.meal = state.curRecipe!!.meal
+                                    recipe.thumb = state.curRecipe!!.thumb
+                                    recipe.ingredients = state.curRecipe!!.ingredients
+                                    recipe.measures = state.curRecipe!!.measures
+                                    recipe.instructions = state.curRecipe!!.instructions
+                                    recipe.category = state.curRecipe!!.category
+
+                                    //println("The result: " + area + " ++ " + recipe.meal)
                                 // recipe = state.curRecipe!!
 
                                 } catch (e: Exception) {
