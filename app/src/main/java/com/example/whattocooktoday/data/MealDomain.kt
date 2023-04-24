@@ -1,16 +1,16 @@
 package com.example.whattocooktoday.data
 
 data class MealDomain(
-        val instructions: String,
-        val area: String,
-        val meal: String,
-        val thumb: String?,
-        val category: String,
-        val ingredients: List<String>,
-        val measures: List<String>,
+    val instructions: String,
+    var area: String,
+    val meal: String,
+    val thumb: String?,
+    val category: String,
+    val ingredients: List<String>,
+    val measures: List<String>,
     ) {
         companion object {
-                fun default() = MealDomain(
+                 fun default() = MealDomain(
                         meal = "No meal",
                         category = "No category",
                         area = "No area",

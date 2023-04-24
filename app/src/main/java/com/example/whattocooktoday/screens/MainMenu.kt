@@ -10,9 +10,7 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -22,21 +20,25 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.example.whattocooktoday.data.MealDomain
+import com.example.whattocooktoday.data.RecipeApi
+import com.example.whattocooktoday.data.RecipeUiState
+import kotlinx.coroutines.launch
 
 @Composable
 fun MainMenu(recipeViewModel: ViewModelScreen = viewModel()) {
 
     val recipeUiState by recipeViewModel.uiState.collectAsState()
 
-    val recipe = recipeUiState.curRecipe
+    var recipe by remember { mutableStateOf(recipeUiState.curRecipe) }
 
     if (recipe != null) {
                 Background()
                 Foreground(
-                        recipe = recipe,
+                        recipe = recipe!!,
                     recipeViewModel
                     )
             }
@@ -62,9 +64,20 @@ fun Foreground(recipe: MealDomain = MealDomain.default(), recipeViewModel: ViewM
                     modifier = Modifier
                         .size(50.dp)
                         .clickable {
-                            val recipeUiState = recipeViewModel.uiState.value
+                            recipeViewModel.viewModelScope.launch {
+                                var state: RecipeUiState? = null
+                                try {
+                                    val listResult = RecipeApi.retrofitService.getRecipe()
+                                    state = RecipeUiState(listResult.meals[0].toDomain())
+                                    println("The result is: " + state.curRecipe!!.meal)
+                                    recipe = state.curRecipe!!
 
-                            val recipe = recipeUiState.curRecipe
+                                } catch (e: Exception) {
+                                    //_uiState.value = RecipeUiState(${e.message})
+                                    println("The result is ++++++++++ ${e.message}")
+
+                                }
+                            }
                         }
                 )
             }

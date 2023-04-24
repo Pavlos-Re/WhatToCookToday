@@ -1,5 +1,5 @@
 package com.example.whattocooktoday.data
 
 data class RecipeUiState (
-    val curRecipe : MealDomain?
+    var curRecipe : MealDomain?
     )

@@ -13,7 +13,7 @@ class ViewModelScreen: ViewModel() {
 
     private val _uiState = MutableStateFlow(RecipeUiState(curRecipe = null))
 
-    val uiState: StateFlow<RecipeUiState> = _uiState.asStateFlow()
+    var uiState: StateFlow<RecipeUiState> = _uiState.asStateFlow()
 
     init {
         getRecipe()
