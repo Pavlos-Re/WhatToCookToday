@@ -33,12 +33,12 @@ fun MainMenu(recipeViewModel: ViewModelScreen = viewModel()) {
 
     val recipeUiState by recipeViewModel.uiState.collectAsState()
 
-    var recipe by remember { mutableStateOf(recipeUiState.curRecipe) }
+    val recipe = recipeUiState.curRecipe
 
     if (recipe != null) {
                 Background()
                 Foreground(
-                        recipe = recipe!!,
+                        recipe = recipe,
                     recipeViewModel
                     )
             }
@@ -70,7 +70,8 @@ fun Foreground(recipe: MealDomain = MealDomain.default(), recipeViewModel: ViewM
                                     val listResult = RecipeApi.retrofitService.getRecipe()
                                     state = RecipeUiState(listResult.meals[0].toDomain())
                                     println("The result is: " + state.curRecipe!!.meal)
-                                    recipe = state.curRecipe!!
+                                    //
+                                // recipe = state.curRecipe!!
 
                                 } catch (e: Exception) {
                                     //_uiState.value = RecipeUiState(${e.message})
